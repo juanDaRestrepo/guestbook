@@ -9,12 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ConferenceRepository;
 use App\Repository\CommentRepository;
 use App\Entity\Conference;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Twig\Environment;
 class ConferenceController extends AbstractController
 {
     #[Route('/', name: 'homepage')]
-    public function index(ConferenceRepository $conferenceRepository): Response
+    public function index(ConferenceRepository $conferenceRepository, SessionInterface $session): Response
     {
+        dump($session->get('prueba'));
         $conferences = $conferenceRepository->findAll();
         return $this->render('conference/index.html.twig',[
             'conferences'=>$conferences
